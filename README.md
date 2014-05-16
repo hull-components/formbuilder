@@ -20,7 +20,7 @@ and project dependencies
 
 Start the default grunt task
 
-  grunt
-  open http://localhost:8000
+    grunt
+    open http://localhost:8000
 
 
