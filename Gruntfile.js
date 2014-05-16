@@ -25,6 +25,10 @@ module.exports = function (grunt) {
       components: {
         files: ['aura_components/**/*'],
         tasks: ['hull_widgets', 'cssmin:minify']
+      },
+      html: {
+        files: ['*.html', 'config.yml'],
+        tasks: ['copy:html']
       }
     },
 
