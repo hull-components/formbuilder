@@ -1,0 +1,20 @@
+<html>
+<head>
+  <title>Hull Form Builder</title>
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//hull-js.s3.amazonaws.com/0.8/hull.js"></script>
+  <script>
+  Hull.init({"appId":"51e88549d4503744b4000009","orgUrl":"http://e2ee4d3b.hullapp.dev","jsUrl":"http://hull-js.s3.amazonaws.com","debug":false});
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>
+      Form Builder
+      <a class="btn btn-primary" href="/preview.html" target="_preview">Preview</a>
+    </h1>
+    <div data-hull-component="builder" data-hull-id="entity:formidable"></div>
+  </div>
+</body>
+</html>
