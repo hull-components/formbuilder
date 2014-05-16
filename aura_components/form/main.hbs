@@ -1,0 +1,19 @@
+<form role="form" data-hull-form-namespace="{{formNamespace}}">
+  {{#form}}
+  <h1>{{name}}</h1>
+  <p>{{description}}</p>
+  {{/form}}
+
+  {{#each fields}}
+    <div class="{{#ifEqual field_type "checkboxes"}}checkkbox{{else}}form-group{{/ifEqual}}" data-hull-field-name="{{name}}">
+      <label for="{{input_id}}">
+        {{label}}{{#if required}}*{{/if}}
+      </label>
+      {{{markup}}}
+      {{#if field_options.description}}
+      <p class="help-block">{{field_options.description}}</p>
+      {{/if}}
+    </div>
+  {{/each}}
+  <button class="btn btn-primary btn-block" type="submit" >Save</button>
+</form>

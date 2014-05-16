@@ -1,0 +1,6 @@
+<input id="{{input_id}}" type='text' name='{{name}}' class='form-control' 
+  {{#required}}required{{/required}} 
+  value="{{value}}"
+  {{#if field_options.minlength}}data-parsley-minlength="{{field_options.minlength}}"{{/if}} 
+  {{#if field_options.maxlength}}data-parsley-maxlength="{{field_options.maxlength}}"{{/if}} 
+/>

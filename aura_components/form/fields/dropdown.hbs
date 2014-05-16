@@ -1,0 +1,10 @@
+<select name="{{name}}" class="form-control">
+  {{#if field_options.include_blank_option}}
+    <option value=''></option>
+  {{/if}}
+  {{#each field_options.options}}
+    <option value="{{label}}" {{#if selected}}selected{{/if}}>
+      {{label}}
+    </option>
+  {{/each}}
+</select>

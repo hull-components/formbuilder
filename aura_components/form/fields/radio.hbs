@@ -1,0 +1,41 @@
+{{#each field_options.options}}
+<div>
+  <label class='fb-option'>
+    <input type='radio' name="{{../name}}" value="{{label}}" {{#if selected}}checked{{/if}} />
+    {{label}}
+  </label>
+</div>
+{{/each}}
+
+{{#if field_options.include_other_option}}
+<div class='other-option'>
+  <label class='fb-option'>
+    <input type='radio' name="{{name}}" value="other" {{#ifEqual value "other"}}checked{{/ifEqual}} />
+    Other
+  </label>
+
+  <input type='text' name="{{name}}_other_value" value="{{other_value}}" />
+</div>
+{{/if}}
+
+{{!-- 
+    <% for (i in (rf.get(Formbuilder.options.mappings.OPTIONS) || [])) { %>
+      <div>
+        <label class='fb-option'>
+          <input type='radio' <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].checked && 'checked' %> onclick="javascript: return false;" />
+          <%= rf.get(Formbuilder.options.mappings.OPTIONS)[i].label %>
+        </label>
+      </div>
+    <% } %>
+
+    <% if (rf.get(Formbuilder.options.mappings.INCLUDE_OTHER)) { %>
+      <div class='other-option'>
+        <label class='fb-option'>
+          <input type='radio' />
+          Other
+        </label>
+
+        <input type='text' />
+      </div>
+    <% } %>
+ --}}

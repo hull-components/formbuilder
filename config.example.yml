@@ -1,0 +1,6 @@
+init:
+  appId: "51e88549d4503744b4000009"
+  orgUrl: "http://xxx.hullapp.io"
+  debug: true
+form:
+  uid: "bla"
