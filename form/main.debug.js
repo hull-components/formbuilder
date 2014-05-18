@@ -500,7 +500,13 @@ function program10(depth0,data) {
 function program12(depth0,data) {
   
   
-  return "\n  <button class=\"btn btn-danger btn-block\" data-hull-action=\"reset\">Reset</button>\n  ";
+  return "\n    <a href=\"#\" class=\"btn pull-right\" data-hull-action=\"edit\">Edit Fields</a>\n    ";
+  }
+
+function program14(depth0,data) {
+  
+  
+  return "\n    <button class=\"btn btn-danger\" data-hull-action=\"reset\">Reset</button>\n    ";
   }
 
   buffer += "<form role=\"form\" data-hull-form-namespace=\"";
@@ -516,10 +522,13 @@ function program12(depth0,data) {
   buffer += "\n\n  ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.fields), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  <button class=\"btn btn-primary btn-block\" type=\"submit\" >Save</button>\n  ";
-  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.resetButton), {hash:{},inverse:self.noop,fn:self.program(12, program12, data),data:data});
+  buffer += "\n\n  <div>\n    ";
+  stack1 = helpers['if'].call(depth0, (depth0 && depth0.isAdmin), {hash:{},inverse:self.noop,fn:self.program(12, program12, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n</form>\n";
+  buffer += "\n\n    <button class=\"btn btn-primary\" type=\"submit\" >Save</button>\n    \n    ";
+  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.resetButton), {hash:{},inverse:self.noop,fn:self.program(14, program14, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "    \n  </div>\n\n</form>\n";
   return buffer;
   } ; 
 
@@ -566,6 +575,9 @@ Hull.component({
     reset: function(e) {
       e && e.preventDefault();
       this.saveForm(false);
+    },
+    edit: function() {
+      this.sandbox.emit('form.edit', this.formName);
     }
   },
 

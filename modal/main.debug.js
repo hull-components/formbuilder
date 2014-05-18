@@ -1,6 +1,19 @@
 this.Hull = this.Hull || {};
 this.Hull.templates = this.Hull.templates || {};
 this.Hull.templates._default = this.Hull.templates._default || {};
+Hull.templates._default["modal/edit"]=function (Handlebars,depth0,helpers,partials,data) {
+  this.compilerInfo = [4,'>= 1.0.0'];
+helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
+  var buffer = "", stack1, functionType="function", escapeExpression=this.escapeExpression;
+
+
+  buffer += "<div class=\"modal-dialog\">\n  <div class=\"modal-content\">\n    <div class=\"modal-header\">\n      <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n      <h4 class=\"modal-title\">Editing "
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.title)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n    </div>\n    <div class=\"modal-body\">\n      <div data-hull-component='builder@formbuilder' data-hull-id=\"entity:"
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.formName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "\"></div>\n    </div>\n  </div>\n</div>\n";
+  return buffer;
+  };
 Hull.templates._default["modal/modal"]=function (Handlebars,depth0,helpers,partials,data) {
   this.compilerInfo = [4,'>= 1.0.0'];
 helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
@@ -9,7 +22,9 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 function program1(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n        <h4 class=\"modal-title\" id=\"myModalLabel\">Modal title</h4>\n      </div>\n      <div class=\"modal-body\">\n        ";
+  buffer += "\n  <div class=\"modal-dialog\">\n    <div class=\"modal-content\">\n      <div class=\"modal-header\">\n        <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n        <h4 class=\"modal-title\" id=\"myModalLabel\">"
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.title)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n      </div>\n      <div class=\"modal-body\">\n        ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.displayForm), {hash:{},inverse:self.program(4, program4, data),fn:self.program(2, program2, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n      </div>\n    </div>\n  </div>\n";
@@ -18,9 +33,7 @@ function program1(depth0,data) {
 function program2(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n        <h3>Hello "
-    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.me)),stack1 == null || stack1 === false ? stack1 : stack1.name)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</h3>\n        <div data-hull-component='form@formbuilder' data-hull-id=\"entity:"
+  buffer += "\n        <div data-hull-component='form@formbuilder' data-hull-id=\"entity:"
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.formName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"></div>\n        ";
   return buffer;
@@ -38,14 +51,32 @@ function program4(depth0,data) {
   } ; 
 
 Hull.component({
-  templates: ['modal'],
+  templates: ['modal', 'edit'],
   refreshEvents: ['hull.auth.login'],
 
   initialize: function() {
+    var self = this;
     this.modalOpened = false;
+    this.sandbox.on('form.edit', function(formName) {
+      debugger
+      console.warn("Edit", formName);
+      this.render('edit', { formName: formName, displayModal: true });
+    }, this);
     this.sandbox.on('form.saved', function(form) {
       this.hide();
     }, this);
+
+    this.$el.on('hide.bs.modal', function() {
+      console.warn("Modal Hide", this, arguments);
+      this.modalOpened = false;
+    });
+
+    this.$el.on('show.bs.modal', function() {
+      console.warn("Modal Show", this, arguments);
+      this.modalOpened = false;
+    });
+
+
   },
 
   beforeRender: function(data) {
@@ -72,12 +103,10 @@ Hull.component({
   show: function() {
     if (!this.modalOpened) {
       this.$el.modal('show');
-      this.modalOpened = true;
     }
   },
 
   hide: function() {
-    this.modalOpened = false;
     this.$el.modal('hide');
   }
 });
