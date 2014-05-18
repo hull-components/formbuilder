@@ -5,16 +5,16 @@
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="//hull-js.s3.amazonaws.com/0.8/hull.js"></script>
   <script>
-  Hull.init({{initConfig}});
+  Hull.init({{{initConfig}}});
   </script>
 </head>
 <body>
   <div class="container">
     <h1>
       Form Builder
-      <a class="btn btn-primary" href="./admin.html" target="_admin">Admin</a>
+      <a class="btn btn-primary" href="./index.html" target="_preview">Preview</a>
     </h1>
-    <div data-hull-component="form@formbuilder" data-hull-id="entity:{{formUid}}"></div>
+    <div data-hull-component="builder" data-hull-id="{{components.builder.id}}"></div>
   </div>
 </body>
 </html>

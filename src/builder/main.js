@@ -50,7 +50,7 @@ Hull.component({
     if (this.linkTagInjected || this.options.injectLinkTag === false) { return; }
 
     var e = document.createElement('link');
-    e.href = this.options.baseUrl + '/css/' + file + '.min.css';
+    e.href = this.options.baseUrl + '/css/' + file + '.css';
     e.rel = 'stylesheet';
 
     document.getElementsByTagName('head')[0].appendChild(e);

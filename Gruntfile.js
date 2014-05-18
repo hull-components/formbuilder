@@ -1,43 +1,29 @@
 module.exports = function (grunt) {
-  grunt.loadNpmTasks('grunt-hull-widgets');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-gh-pages');
+  grunt.loadNpmTasks('grunt-hull-components');
 
   var config = grunt.file.readYAML('config.yml');
-
-  console.log("Starting with config: ", config);
+  var pkg = grunt.file.readJSON('package.json');
 
   grunt.initConfig({
 
-    hull_widgets: {
-      app: {
-        src: 'aura_components',
-        before: [],
-        dest: 'dist',
-        optimize: false
+    hull_components: {
+      options: {
+        sourceName: pkg.hull.componentSourceName,
+        config: config
+      },
+      components: {
+        src: 'src',
+        dest: 'dist'
       }
     },
 
     watch: {
       components: {
-        files: ['aura_components/**/*'],
-        tasks: ['hull_widgets', 'cssmin:minify']
-      },
-      html: {
-        files: ['*.html', 'config.yml'],
-        tasks: ['copy:html']
-      }
-    },
-
-    cssmin: {
-      minify: {
-        expand: true,
-        src: 'aura_components/**/*.css',
-        dest: 'dist/',
-        ext: '.min.css'
+        files: ['src/**/**'],
+        tasks: ['hull_components']
       }
     },
 
@@ -50,20 +36,6 @@ module.exports = function (grunt) {
       }
     },
 
-    copy: {
-      html: {
-        src: ['*.html'],
-        dest: 'dist/',
-        options: {
-          process: function(content, srcpath) {
-            return content
-                      .replace('{{initConfig}}', JSON.stringify(config.init))
-                      .replace('{{formUid}}', config.form.uid);
-          }
-        }
-      }
-    },
-
     'gh-pages': {
       options: {
         base: 'dist'
@@ -72,6 +44,6 @@ module.exports = function (grunt) {
     }
 
   });
-
-  grunt.registerTask('default', ['connect:server', 'hull_widgets', 'cssmin:minify', 'copy:html', 'watch']);
+  grunt.registerTask('build', ['hull_components']);
+  grunt.registerTask('default', ['connect:server', 'hull_components', 'watch']);
 };

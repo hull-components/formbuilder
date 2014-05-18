@@ -16,7 +16,11 @@ Hull.component({
 
   datasources: {
     form: ":id",
-    profile: "me/profile"
+    profile: function() {
+      if (this.loggedIn()) {
+        return this.api("me/profile");
+      }
+    }
   },
 
   initialize: function() {
@@ -96,7 +100,7 @@ Hull.component({
     if (this.linkTagInjected || this.options.injectLinkTag === false) { return; }
 
     var e = document.createElement('link');
-    e.href = this.options.baseUrl + '/' + file + '.min.css';
+    e.href = this.options.baseUrl + '/' + file + '.css';
     e.rel = 'stylesheet';
 
     document.getElementsByTagName('head')[0].appendChild(e);
