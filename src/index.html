@@ -34,6 +34,7 @@
         var name = action.data.name;
         var component = componentsList[action.data.name].config || {};
         if (component) {
+          $('.dropdown').removeClass('open');
           $('.current-component-name').html(name);
           var previewEl = this.$('#preview');
           var el = $('<div/>').text('loading...');
