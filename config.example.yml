@@ -1,6 +1,11 @@
 init:
-  appId: "51e88549d4503744b4000009"
-  orgUrl: "http://xxx.hullapp.io"
-  debug: true
-form:
-  uid: "bla"
+  appId: "516d68fc28e06bb7b8000040"
+  orgUrl: "https://hull-demos.hullapp.io"
+  debug: false
+  sources:
+    default: '.'
+components:
+  form:
+    id: "entity:formidable"
+  builder:
+    id: "entity:formidable"
