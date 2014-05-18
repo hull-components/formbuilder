@@ -1,13 +1,13 @@
-## Hull Form Components
+# Hull Form Components
 
 
 This app allows you to design and deploy ready to use forms for your [hull](http://hull.io) apps.
 
 
-### Usage and Installation
+## Usage and Installation
 
 
-#### Pulling from the source 
+### Pulling from the source 
 
 You can directly use these components in your apps by adding this repo as a component source : 
 
@@ -21,14 +21,14 @@ Hull.init({
 })
 ```
 
-#### Building in your app
+### Building in your app
 
 
 Please refer to our [grunt-hull-components](http://github.com/hull/grunt-hull-components) [grunt](http://gruntjs.com/) task for instructions to build hull components locally.
 
-### Components
+## Components
 
-#### builder
+### builder
 
 A visual form builder to build custom forms. Based on [dobtco/formbuilder](https://github.com/dobtco/formbuilder)
 
@@ -43,8 +43,9 @@ A visual form builder to build custom forms. Based on [dobtco/formbuilder](https
 <div data-hull-component="builder@formbuilder" data-hull-id="entity:my-super-form"></div>
 ```
 
+---
 
-#### form
+### form
 
 Displays a form built with [builder](#builder).
 
@@ -64,7 +65,9 @@ Comes with :
 <div data-hull-component="form@formbuilder" data-hull-id="entity:my-super-form"></div>
 ```
 
-#### modal
+---
+
+### modal
 
 Displays the form in a modal on page load. (Requires bootstrap 3).
 
@@ -76,19 +79,21 @@ Displays the form in a modal on page load. (Requires bootstrap 3).
 ```
 
 
-### Development
+## Development
 
-Install grunt
+
+Install grunt and dependencies 
 
     npm install -g grunt-cli
-
-and project dependencies 
-
     npm install 
 
 Start the default grunt task
 
     grunt
     open http://localhost:8000
+
+To deploy to gh-pages
+
+    grunt dist
 
 
