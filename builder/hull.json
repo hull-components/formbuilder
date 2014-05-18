@@ -1,6 +1,6 @@
 {
   "name": "builder",
-  "version": "c3a5c6cfba4040b1df375865e36f8b1c597c93bc",
+  "version": "945fae6dac1ca790c73d29cf9f63d58af4de9f35",
   "files": {
     "templates": [
       "main.hbs"
@@ -15,5 +15,5 @@
       "main.js"
     ]
   },
-  "buildDate": "2014-05-18T13:20:04.468Z"
+  "buildDate": "2014-05-18T13:44:37.351Z"
 }
