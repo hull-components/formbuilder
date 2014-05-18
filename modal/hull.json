@@ -1,6 +1,6 @@
 {
   "name": "modal",
-  "version": "968ead6cfcc6c7cdfaea58098cdfc622b0b3e127",
+  "version": "5c3f7f96f20369ac67dde4fda50dc255b06d41f5",
   "files": {
     "templates": [
       "edit.hbs",
@@ -11,5 +11,5 @@
       "main.js"
     ]
   },
-  "buildDate": "2014-05-18T19:56:05.342Z"
+  "buildDate": "2014-05-18T22:11:12.862Z"
 }
