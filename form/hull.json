@@ -1,0 +1,28 @@
+{
+  "name": "form",
+  "version": "c3a5c6cfba4040b1df375865e36f8b1c597c93bc",
+  "files": {
+    "templates": [
+      "fields/checkboxes.hbs",
+      "fields/date.hbs",
+      "fields/dropdown.hbs",
+      "fields/email.hbs",
+      "fields/number.hbs",
+      "fields/paragraph.hbs",
+      "fields/radio.hbs",
+      "fields/text.hbs",
+      "fields/website.hbs",
+      "main.hbs"
+    ],
+    "stylesheets": [
+      "parsley.css",
+      "pikaday.css"
+    ],
+    "javascripts": [
+      "main.js",
+      "parsley.js",
+      "pikaday.js"
+    ]
+  },
+  "buildDate": "2014-05-18T13:20:09.307Z"
+}

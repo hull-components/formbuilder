@@ -1,20 +1,112 @@
 <html>
 <head>
-  <title>Hull Form Builder</title>
+  <title>Hull Components - formbuilder - version: c3a5c6cfba4040b1df375865e36f8b1c597c93bc</title>
   <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+  <style type="text/css" media="screen">
+    body {
+      min-width: 970px;
+      padding-top: 70px;
+      padding-bottom: 30px;
+    }
+
+    /* Finesse the page header spacing */
+    .page-header {
+      margin-bottom: 30px;
+    }
+    .page-header .lead {
+      margin-bottom: 10px;
+    }
+
+    .login-profile img {
+      width: 36px;
+      height: 36px;
+    }
+  </style>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <script src="//hull-js.s3.amazonaws.com/0.8/hull.js"></script>
   <script>
-  Hull.init({"appId":"516d68fc28e06bb7b8000040","orgUrl":"http://hull-demos.hullapp.io","debug":false});
+  var componentsList = {"builder":{"main":"src/builder/main.js","version":"c3a5c6cfba4040b1df375865e36f8b1c597c93bc","sourcePath":"/Users/sbellity/code/hull/hull-formbuilder/src","name":"builder","basePath":"src/builder","destPath":"/Users/sbellity/code/hull/hull-formbuilder/dist/builder","options":{"templates":{"extension":"hbs","wrapped":false,"namespace":"Hull.templates._default"},"stylesheets":{"extension":"css"},"sourceName":"formbuilder","config":{"init":{"appId":"516d68fc28e06bb7b8000040","orgUrl":"https://hull-demos.hullapp.io","debug":false,"sources":{"default":"."}},"components":{"form":{"id":"entity:formidable"},"builder":{"id":"entity:formidable"}}},"version":"c3a5c6cfba4040b1df375865e36f8b1c597c93bc"},"files":{"templates":["main.hbs"],"stylesheets":["css/formbuilder-combined.css","css/formbuilder.css","css/vendor.css"],"javascripts":["formbuilder.js","main.js"]},"config":{"id":"entity:formidable"}},"form":{"main":"src/form/main.js","version":"c3a5c6cfba4040b1df375865e36f8b1c597c93bc","sourcePath":"/Users/sbellity/code/hull/hull-formbuilder/src","name":"form","basePath":"src/form","destPath":"/Users/sbellity/code/hull/hull-formbuilder/dist/form","options":{"templates":{"extension":"hbs","wrapped":false,"namespace":"Hull.templates._default"},"stylesheets":{"extension":"css"},"sourceName":"formbuilder","config":{"init":{"appId":"516d68fc28e06bb7b8000040","orgUrl":"https://hull-demos.hullapp.io","debug":false,"sources":{"default":"."}},"components":{"form":{"id":"entity:formidable"},"builder":{"id":"entity:formidable"}}},"version":"c3a5c6cfba4040b1df375865e36f8b1c597c93bc"},"files":{"templates":["fields/checkboxes.hbs","fields/date.hbs","fields/dropdown.hbs","fields/email.hbs","fields/number.hbs","fields/paragraph.hbs","fields/radio.hbs","fields/text.hbs","fields/website.hbs","main.hbs"],"stylesheets":["parsley.css","pikaday.css"],"javascripts":["main.js","parsley.js","pikaday.js"]},"config":{"id":"entity:formidable"}}};
+  Hull.component('component-preview', {
+    render: function() {},
+    actions: {
+      preview: function(event, action) {
+        var name = action.data.name;
+        var component = componentsList[action.data.name].config || {};
+        if (component) {
+          $('.dropdown').removeClass('open');
+          $('.current-component-name').html(name);
+          var previewEl = this.$('#preview');
+          var el = $('<div/>').text('loading...');
+          previewEl.html(el);
+          var def = { options: $.extend({ el: el }, component), name: name };
+          this.sandbox.start([def], { reset: true });
+        } else {
+          console.warn("Component: ", name, " not found");
+        }
+      }
+    }
+  });
+
+  Hull.init({"appId":"516d68fc28e06bb7b8000040","orgUrl":"https://hull-demos.hullapp.io","debug":false,"sources":{"default":"."}});
   </script>
 </head>
 <body>
-  <div class="container">
-    <h1>
-      Form Builder
-      <a class="btn btn-primary" href="./admin.html" target="_admin">Admin</a>
-    </h1>
-    <div data-hull-component="form@formbuilder" data-hull-id="entity:formidable"></div>
+  <div  data-hull-component="component-preview">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand">
+            formbuilder
+          </a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                <span class="current-component-name">&nbsp;</span> <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu" role="menu">
+                
+                <li role="presentation">
+                  <a data-target="#" role="menuitem" data-toggle="dropdown" data-hull-action="preview" data-hull-name="builder">
+                    builder
+                  </a>
+                </li>
+                
+                <li role="presentation">
+                  <a data-target="#" role="menuitem" data-toggle="dropdown" data-hull-action="preview" data-hull-name="form">
+                    form
+                  </a>
+                </li>
+                
+              </ul>
+            </li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class='login-profile' data-hull-component="login/profile@hull"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12" id="preview">
+          <ul class="nav nav-pills nav-stacked">
+            
+            <li>
+              <a href="#" data-hull-action="preview" data-hull-name="builder">builder</a>
+            </li>
+            
+            <li>
+              <a href="#" data-hull-action="preview" data-hull-name="form">form</a>
+            </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>

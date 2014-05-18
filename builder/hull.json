@@ -1,0 +1,19 @@
+{
+  "name": "builder",
+  "version": "c3a5c6cfba4040b1df375865e36f8b1c597c93bc",
+  "files": {
+    "templates": [
+      "main.hbs"
+    ],
+    "stylesheets": [
+      "css/formbuilder-combined.css",
+      "css/formbuilder.css",
+      "css/vendor.css"
+    ],
+    "javascripts": [
+      "formbuilder.js",
+      "main.js"
+    ]
+  },
+  "buildDate": "2014-05-18T13:20:04.468Z"
+}
