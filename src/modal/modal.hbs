@@ -7,7 +7,7 @@
       </div>
       <div class="modal-body">
         {{#if displayForm}}
-        <div data-hull-component='form@formbuilder' data-hull-id="entity:{{options.formName}}"></div>
+        <div data-hull-component='form@formbuilder' data-hull-id="{{form.id}}"></div>
         {{else}}
         <div data-hull-component='login/shopify@hull' data-hull-redirect-on-login="false"></div>
         {{/if}}

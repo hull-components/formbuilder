@@ -38,8 +38,11 @@
           $('.current-component-name').html(name);
           var previewEl = this.$('#preview');
           var el = $('<div/>').text('loading...');
+          $.each((component.attributes || {}), function(k, v) {
+            el.attr(k,v);
+          });
           previewEl.html(el);
-          var def = { options: $.extend({ el: el }, component), name: name };
+          var def = { options: $.extend({ el: el }, (component.options || {})), name: name };
           this.sandbox.start([def], { reset: true });
         } else {
           console.warn("Component: ", name, " not found");

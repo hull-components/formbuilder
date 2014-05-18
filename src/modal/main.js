@@ -11,6 +11,10 @@ Hull.component({
     'edit'
   ],
   
+  datasources: {
+    form: ":id"
+  },
+
   initialize: function() {
     var self = this;
     this.modalOpened = false;
@@ -39,12 +43,14 @@ Hull.component({
 
   beforeRender: function(data) {
     // Rules to display the modal... or not
+    var formName = data.form.uid;
+    
     var formData = false;
-    if (data.me && data.me.profile && data.me.profile[this.options.formName]) {
-      data.formData = formData = data.me.profile[this.options.formName];
+    if (data.me && data.me.profile && data.me.profile[formName]) {
+      data.formData = formData = data.me.profile[formName];
     }
-    data.formComplete = formData;
 
+    data.formComplete = formData;
 
     // If displayForm is true, the template will show the form
     data.displayForm = this.loggedIn() && !data.formComplete;
