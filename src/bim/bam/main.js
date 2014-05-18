@@ -1,3 +1,0 @@
-Hull.component({
-  templates: ['main']
-});
