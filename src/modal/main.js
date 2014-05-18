@@ -1,12 +1,30 @@
 Hull.component({
-  templates: ['modal'],
+  templates: ['modal', 'edit'],
   refreshEvents: ['hull.auth.login'],
 
   initialize: function() {
+    var self = this;
     this.modalOpened = false;
+    this.sandbox.on('form.edit', function(formName) {
+      debugger
+      console.warn("Edit", formName);
+      this.render('edit', { formName: formName, displayModal: true });
+    }, this);
     this.sandbox.on('form.saved', function(form) {
       this.hide();
     }, this);
+
+    this.$el.on('hide.bs.modal', function() {
+      console.warn("Modal Hide", this, arguments);
+      this.modalOpened = false;
+    });
+
+    this.$el.on('show.bs.modal', function() {
+      console.warn("Modal Show", this, arguments);
+      this.modalOpened = false;
+    });
+
+
   },
 
   beforeRender: function(data) {
@@ -33,12 +51,10 @@ Hull.component({
   show: function() {
     if (!this.modalOpened) {
       this.$el.modal('show');
-      this.modalOpened = true;
     }
   },
 
   hide: function() {
-    this.modalOpened = false;
     this.$el.modal('hide');
   }
 });

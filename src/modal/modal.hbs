@@ -3,11 +3,10 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+        <h4 class="modal-title" id="myModalLabel">{{options.title}}</h4>
       </div>
       <div class="modal-body">
         {{#if displayForm}}
-        <h3>Hello {{me.name}}</h3>
         <div data-hull-component='form@formbuilder' data-hull-id="entity:{{options.formName}}"></div>
         {{else}}
         <div data-hull-component='login/shopify@hull' data-hull-redirect-on-login="false"></div>

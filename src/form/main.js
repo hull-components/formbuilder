@@ -41,6 +41,9 @@ Hull.component({
     reset: function(e) {
       e && e.preventDefault();
       this.saveForm(false);
+    },
+    edit: function() {
+      this.sandbox.emit('form.edit', this.formName);
     }
   },
 

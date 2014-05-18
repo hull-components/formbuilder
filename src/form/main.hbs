@@ -15,8 +15,17 @@
       {{/if}}
     </div>
   {{/each}}
-  <button class="btn btn-primary btn-block" type="submit" >Save</button>
-  {{#if options.resetButton}}
-  <button class="btn btn-danger btn-block" data-hull-action="reset">Reset</button>
-  {{/if}}
+
+  <div>
+    {{#if isAdmin}}
+    <a href="#" class="btn pull-right" data-hull-action="edit">Edit Fields</a>
+    {{/if}}
+
+    <button class="btn btn-primary" type="submit" >Save</button>
+    
+    {{#if options.resetButton}}
+    <button class="btn btn-danger" data-hull-action="reset">Reset</button>
+    {{/if}}    
+  </div>
+
 </form>
