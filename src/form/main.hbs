@@ -16,4 +16,7 @@
     </div>
   {{/each}}
   <button class="btn btn-primary btn-block" type="submit" >Save</button>
+  {{#if options.resetButton}}
+  <button class="btn btn-danger btn-block" data-hull-action="reset">Reset</button>
+  {{/if}}
 </form>

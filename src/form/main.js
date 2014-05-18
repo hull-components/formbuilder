@@ -37,20 +37,56 @@ Hull.component({
     }
   },
 
+  actions: {
+    reset: function(e) {
+      e && e.preventDefault();
+      this.saveForm(false);
+    }
+  },
+
   saveForm: function(data) {
     var self = this;
     this.$('[type="submit"]').attr('disabled', true);
     var profileData = {};
-    profileData[this.formNamespace] = data;
-    this.api.put('me/profile', profileData, function(res) {
-      self.render();
-    })
+    profileData[this.formName] = data;
+    this.api.put('me/profile', profileData).then(function(res) {
+      var val = res[self.formName];
+      if (data != false) {
+        self.emitFormEvent('saved', { data: val });
+      } else {
+        self.emitFormEvent('reset', { data: false });
+      }
+    }, function(err) {
+      self.emitFormEvent('error', { errors: err });
+    });
+  },
+
+  emitFormEvent: function(eventName, data) {
+    var eventData = data;
+    eventData.eventName = eventName;
+    eventData.formName = this.formName;
+    eventData.cid = this.cid;
+    this.sandbox.emit('form.' + eventName, eventData);
+  },
+
+  listenToFormEvents: function() {
+    if (this.listening) return;
+    console.warn("Listeing now... ", this.cid)
+    this.sandbox.on('form.*', function(evt) {
+      if (evt && evt.formName) {
+        this.$('[type="submit"]').attr('disabled', false);
+        this.render();
+      } else {
+        console.warn("... not for me.... ", evt);
+      }
+    }, this);
+    this.listening = true;
   },
 
   beforeRender: function(data) {
-    var ns = data.formNamespace = this.formNamespace = this.normalizeFormNamespace(data.form.uid);
+    var ns = data.formName = this.formName = this.normalizeFormName(data.form.uid);
     var self = this, _ = this.sandbox.util._,
-        profile = data.profile[ns] || {};
+        profile = (data.profile && data.profile[ns]) || {};
         fields  = data.form.extra.fields || [];
     var formId = Math.round(Math.random() * 1000000);
 
@@ -90,9 +126,10 @@ Hull.component({
         }
       });
     }
+    this.listenToFormEvents();
   },
 
-  normalizeFormNamespace: function(ns) {
+  normalizeFormName: function(ns) {
     return ns.replace(/[^a-z0-9_\-]/ig, '_');
   },
 
