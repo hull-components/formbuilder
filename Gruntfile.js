@@ -12,7 +12,8 @@ module.exports = function (grunt) {
     hull_components: {
       options: {
         sourceName: pkg.hull.componentSourceName,
-        config: config
+        config: config,
+        optimize: !grunt.option('dev')
       },
       src: {
         src: 'src',
