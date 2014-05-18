@@ -15,7 +15,8 @@ Hull.component({
 
   initialize: function() {
     Formbuilder.options.AUTOSAVE = false;
-    this.injectLinkTag('formbuilder-combined');
+    this.injectLinkTag('formbuilder');
+    this.injectLinkTag('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min');
   },
 
   beforeRender: function(data) {
@@ -50,7 +51,11 @@ Hull.component({
     if (this.linkTagInjected || this.options.injectLinkTag === false) { return; }
 
     var e = document.createElement('link');
-    e.href = this.options.baseUrl + '/css/' + file + '.css';
+    var href = file + '.css';
+    if (!/^http/.test(file)) {
+      href = this.options.baseUrl + '/css/' + href;
+    }
+    e.href = href;
     e.rel = 'stylesheet';
 
     document.getElementsByTagName('head')[0].appendChild(e);
