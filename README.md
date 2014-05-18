@@ -26,6 +26,23 @@ Hull.init({
 
 Please refer to our [grunt-hull-components](http://github.com/hull/grunt-hull-components) [grunt](http://gruntjs.com/) task for instructions to build hull components locally.
 
+
+### Using it in Shopify
+
+#### Adding the components source
+
+In the Theme editor, edit `Snippets/hull.liquid` to [add the formbuilder source](#pulling-from-the-source).
+
+#### Add the modal component to your layout 
+
+In the Theme editor, edit the `Layouts / theme.liquid` to add the [modal](#modal) component.
+You can place it at the bottom of the template, just before the closing `</body>` tag.
+
+#### Add the form to the Account page (Optional).
+
+You can also add the form anywhere on the Account page to allow your users to edit their information.
+
+
 ## Components
 
 ### builder
