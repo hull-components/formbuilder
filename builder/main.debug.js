@@ -44,7 +44,7 @@ Hull.component({
   },
 
   afterRender: function(data) {
-    if (data.isAdmin) {
+    if (this.options.namespace || data.isAdmin) {
       var self = this;
       var bootstrapData = [];
       if (data.form.extra && data.form.extra.fields) {

@@ -1,6 +1,6 @@
 {
   "name": "form",
-  "version": "945fae6dac1ca790c73d29cf9f63d58af4de9f35",
+  "version": "092d54f9852b2fc446c754b72a51027600321232",
   "files": {
     "templates": [
       "fields/checkboxes.hbs",
@@ -24,5 +24,5 @@
       "pikaday.js"
     ]
   },
-  "buildDate": "2014-05-18T13:44:41.974Z"
+  "buildDate": "2014-05-18T18:55:42.549Z"
 }

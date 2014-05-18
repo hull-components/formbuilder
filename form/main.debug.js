@@ -497,6 +497,12 @@ function program10(depth0,data) {
   return buffer;
   }
 
+function program12(depth0,data) {
+  
+  
+  return "\n  <button class=\"btn btn-danger btn-block\" data-hull-action=\"reset\">Reset</button>\n  ";
+  }
+
   buffer += "<form role=\"form\" data-hull-form-namespace=\"";
   if (helper = helpers.formNamespace) { stack1 = helper.call(depth0, {hash:{},data:data}); }
   else { helper = (depth0 && depth0.formNamespace); stack1 = typeof helper === functionType ? helper.call(depth0, {hash:{},data:data}) : helper; }
@@ -510,7 +516,10 @@ function program10(depth0,data) {
   buffer += "\n\n  ";
   stack1 = helpers.each.call(depth0, (depth0 && depth0.fields), {hash:{},inverse:self.noop,fn:self.program(3, program3, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  <button class=\"btn btn-primary btn-block\" type=\"submit\" >Save</button>\n</form>\n";
+  buffer += "\n  <button class=\"btn btn-primary btn-block\" type=\"submit\" >Save</button>\n  ";
+  stack1 = helpers['if'].call(depth0, ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.resetButton), {hash:{},inverse:self.noop,fn:self.program(12, program12, data),data:data});
+  if(stack1 || stack1 === 0) { buffer += stack1; }
+  buffer += "\n</form>\n";
   return buffer;
   } ; 
 
@@ -553,20 +562,56 @@ Hull.component({
     }
   },
 
+  actions: {
+    reset: function(e) {
+      e && e.preventDefault();
+      this.saveForm(false);
+    }
+  },
+
   saveForm: function(data) {
     var self = this;
     this.$('[type="submit"]').attr('disabled', true);
     var profileData = {};
-    profileData[this.formNamespace] = data;
-    this.api.put('me/profile', profileData, function(res) {
-      self.render();
-    })
+    profileData[this.formName] = data;
+    this.api.put('me/profile', profileData).then(function(res) {
+      var val = res[self.formName];
+      if (data != false) {
+        self.emitFormEvent('saved', { data: val });
+      } else {
+        self.emitFormEvent('reset', { data: false });
+      }
+    }, function(err) {
+      self.emitFormEvent('error', { errors: err });
+    });
+  },
+
+  emitFormEvent: function(eventName, data) {
+    var eventData = data;
+    eventData.eventName = eventName;
+    eventData.formName = this.formName;
+    eventData.cid = this.cid;
+    this.sandbox.emit('form.' + eventName, eventData);
+  },
+
+  listenToFormEvents: function() {
+    if (this.listening) return;
+    console.warn("Listeing now... ", this.cid)
+    this.sandbox.on('form.*', function(evt) {
+      if (evt && evt.formName) {
+        this.$('[type="submit"]').attr('disabled', false);
+        this.render();
+      } else {
+        console.warn("... not for me.... ", evt);
+      }
+    }, this);
+    this.listening = true;
   },
 
   beforeRender: function(data) {
-    var ns = data.formNamespace = this.formNamespace = this.normalizeFormNamespace(data.form.uid);
+    var ns = data.formName = this.formName = this.normalizeFormName(data.form.uid);
     var self = this, _ = this.sandbox.util._,
-        profile = data.profile[ns] || {};
+        profile = (data.profile && data.profile[ns]) || {};
         fields  = data.form.extra.fields || [];
     var formId = Math.round(Math.random() * 1000000);
 
@@ -606,9 +651,10 @@ Hull.component({
         }
       });
     }
+    this.listenToFormEvents();
   },
 
-  normalizeFormNamespace: function(ns) {
+  normalizeFormName: function(ns) {
     return ns.replace(/[^a-z0-9_\-]/ig, '_');
   },
 
