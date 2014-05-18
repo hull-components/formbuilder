@@ -22,7 +22,7 @@ module.exports = function (grunt) {
 
     watch: {
       components: {
-        files: ['src/**/**'],
+        files: ['src/**/**', 'config.yml'],
         tasks: ['hull_components']
       }
     },
