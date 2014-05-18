@@ -86,7 +86,15 @@
 
     <div class="container">
       <div class="row">
-        <div class="col-md-12" id="preview"></div>
+        <div class="col-md-12" id="preview">
+          <ul class="nav nav-pills nav-stacked">
+            {{#each components}}
+            <li>
+              <a href="#" data-hull-action="preview" data-hull-name="{{name}}">{{name}}</a>
+            </li>
+            {{/each}}
+          </ul>
+        </div>
       </div>
     </div>
   </div>
