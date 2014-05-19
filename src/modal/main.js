@@ -30,15 +30,36 @@ Hull.component({
       this.hide();
     }, this);
 
-    // Listen to bootstrap's modal events
-    // to keep internal state of the modal visibility status
-    this.$el.on('hide.bs.modal', function() {
-      this.modalOpened = false;
-    });
+    this.detectModalEngine();
+  },
 
-    this.$el.on('show.bs.modal', function() {
-      this.modalOpened = false;
-    });
+  detectModalEngine: function() {
+    var self = this;
+    if ($.fn.fancybox) {
+      this.options.modalEngine = 'fancybox';
+      this.modal = function(opts) {
+        if (opts === 'show') {
+          $.fancybox(self.$el);
+          self.modalOpened = true;
+        } else if (opts === 'hide') {
+          $.fancybox.close();
+          self.modalOpened = false;
+        }
+      }
+    } else if ($.fn.modal) {
+      this.options.modalEngine = 'bootstrap';
+      this.$el.on('hide.bs.modal', function() {
+        self.modalOpened = false;
+      });
+
+      this.$el.on('show.bs.modal', function() {
+        self.modalOpened = false;
+      });
+
+      this.modal = function(opts) {
+        self.$el.modal(opts); 
+      }
+    }
   },
 
   beforeRender: function(data) {
@@ -61,6 +82,7 @@ Hull.component({
 
   afterRender: function(data) {
     var self = this;
+    this.detectModalEngine();
     if (data.displayModal) {
       // Make sure the modal is shown and add a delay to open it
       setTimeout(function() {
@@ -74,11 +96,11 @@ Hull.component({
 
   show: function() {
     if (!this.modalOpened) {
-      this.$el.modal('show');
+      this.modal('show');
     }
   },
 
   hide: function() {
-    this.$el.modal('hide');
+    this.modal('hide');
   }
 });

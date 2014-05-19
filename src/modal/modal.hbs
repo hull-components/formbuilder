@@ -1,17 +1,25 @@
 {{#if displayModal}}
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">{{options.title}}</h4>
-      </div>
-      <div class="modal-body">
-        {{#if displayForm}}
-        <div data-hull-component='form@formbuilder' data-hull-id="{{form.id}}"></div>
-        {{else}}
-        <div data-hull-component='login/shopify@hull' data-hull-redirect-on-login="false"></div>
-        {{/if}}
+  {{#ifEqual options.modalEngine "bootstrap"}}
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="myModalLabel">{{options.title}}</h4>
+        </div>
+        <div class="modal-body">
+          {{#if displayForm}}
+          <div data-hull-component='form@formbuilder' data-hull-id="{{form.id}}"></div>
+          {{else}}
+          <div data-hull-component='login/shopify@hull' data-hull-redirect-on-login="false"></div>
+          {{/if}}
+        </div>
       </div>
     </div>
-  </div>
+  {{else}}
+    {{#if displayForm}}
+    <div data-hull-component='form@formbuilder' data-hull-id="{{form.id}}"></div>
+    {{else}}
+    <div data-hull-component='login/shopify@hull' data-hull-redirect-on-login="false"></div>
+    {{/if}}
+  {{/ifEqual}}
 {{/if}}
