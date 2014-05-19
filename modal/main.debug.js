@@ -9,8 +9,8 @@ helpers = this.merge(helpers, Handlebars.helpers); data = data || {};
 
   buffer += "<div class=\"modal-dialog\">\n  <div class=\"modal-content\">\n    <div class=\"modal-header\">\n      <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-hidden=\"true\">&times;</button>\n      <h4 class=\"modal-title\">Editing "
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.title)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "</h4>\n    </div>\n    <div class=\"modal-body\">\n      <div data-hull-component='builder@formbuilder' data-hull-id=\"entity:"
-    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.formName)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
+    + "</h4>\n    </div>\n    <div class=\"modal-body\">\n      <div data-hull-component='builder@formbuilder' data-hull-id=\""
+    + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.form)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
     + "\"></div>\n    </div>\n  </div>\n</div>\n";
   return buffer;
   };
