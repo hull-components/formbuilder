@@ -562,6 +562,11 @@ Hull.component({
       if (this.loggedIn()) {
         return this.api("me/profile");
       }
+    },
+    facebookProfile: function() {
+      if (this.loggedIn()) {
+        
+      }
     }
   },
 
