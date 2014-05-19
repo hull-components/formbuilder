@@ -35,19 +35,8 @@ Hull.component({
 
   detectModalEngine: function() {
     var self = this;
-    if ($.fn.fancybox) {
-      this.options.modalEngine = 'fancybox';
-      this.modal = function(opts) {
-        if (opts === 'show') {
-          $.fancybox(self.$el);
-          self.modalOpened = true;
-        } else if (opts === 'hide') {
-          $.fancybox.close();
-          self.modalOpened = false;
-        }
-      }
-    } else if ($.fn.modal) {
-      this.options.modalEngine = 'bootstrap';
+    if ($.fn.modal) {
+      this.modalEngine = 'bootstrap';
       this.$el.on('hide.bs.modal', function() {
         self.modalOpened = false;
       });
@@ -58,6 +47,17 @@ Hull.component({
 
       this.modal = function(opts) {
         self.$el.modal(opts); 
+      }
+    } else if ($.fn.fancybox) {
+      this.modalEngine = 'fancybox';
+      this.modal = function(opts) {
+        if (opts === 'show') {
+          $.fancybox(self.$el);
+          self.modalOpened = true;
+        } else if (opts === 'hide') {
+          $.fancybox.close();
+          self.modalOpened = false;
+        }
       }
     }
   },
@@ -78,6 +78,8 @@ Hull.component({
 
     // Open the modal afterRender if it's hidden
     data.displayModal = !this.loggedIn() || !data.formComplete;
+
+    data.modalEngine = this.modalEngine;
   },
 
   afterRender: function(data) {

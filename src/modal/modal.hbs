@@ -1,5 +1,5 @@
 {{#if displayModal}}
-  {{#ifEqual options.modalEngine "bootstrap"}}
+  {{#ifEqual modalEngine "bootstrap"}}
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -16,10 +16,12 @@
       </div>
     </div>
   {{else}}
-    {{#if displayForm}}
-    <div data-hull-component='form@formbuilder' data-hull-id="{{form.id}}"></div>
-    {{else}}
-    <div data-hull-component='login/shopify@hull' data-hull-redirect-on-login="false"></div>
-    {{/if}}
+    <div style="min-width:800px; min-height: 50%;">
+      {{#if displayForm}}
+      <div data-hull-component='form@formbuilder' data-hull-id="{{form.id}}"></div>
+      {{else}}
+      <div data-hull-component='login/shopify@hull' data-hull-redirect-on-login="false"></div>
+      {{/if}}
+    </div>
   {{/ifEqual}}
 {{/if}}
