@@ -23,7 +23,7 @@ function program1(depth0,data) {
   
   var buffer = "", stack1, helper, options;
   buffer += "\n  ";
-  stack1 = (helper = helpers.ifEqual || (depth0 && depth0.ifEqual),options={hash:{},inverse:self.program(7, program7, data),fn:self.program(2, program2, data),data:data},helper ? helper.call(depth0, ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.modalEngine), "bootstrap", options) : helperMissing.call(depth0, "ifEqual", ((stack1 = (depth0 && depth0.options)),stack1 == null || stack1 === false ? stack1 : stack1.modalEngine), "bootstrap", options));
+  stack1 = (helper = helpers.ifEqual || (depth0 && depth0.ifEqual),options={hash:{},inverse:self.program(7, program7, data),fn:self.program(2, program2, data),data:data},helper ? helper.call(depth0, (depth0 && depth0.modalEngine), "bootstrap", options) : helperMissing.call(depth0, "ifEqual", (depth0 && depth0.modalEngine), "bootstrap", options));
   if(stack1 || stack1 === 0) { buffer += stack1; }
   buffer += "\n";
   return buffer;
@@ -57,25 +57,25 @@ function program5(depth0,data) {
 function program7(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    ";
+  buffer += "\n    <div style=\"min-width:800px; min-height: 50%;\">\n      ";
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.displayForm), {hash:{},inverse:self.program(10, program10, data),fn:self.program(8, program8, data),data:data});
   if(stack1 || stack1 === 0) { buffer += stack1; }
-  buffer += "\n  ";
+  buffer += "\n    </div>\n  ";
   return buffer;
   }
 function program8(depth0,data) {
   
   var buffer = "", stack1;
-  buffer += "\n    <div data-hull-component='form@formbuilder' data-hull-id=\""
+  buffer += "\n      <div data-hull-component='form@formbuilder' data-hull-id=\""
     + escapeExpression(((stack1 = ((stack1 = (depth0 && depth0.form)),stack1 == null || stack1 === false ? stack1 : stack1.id)),typeof stack1 === functionType ? stack1.apply(depth0) : stack1))
-    + "\"></div>\n    ";
+    + "\"></div>\n      ";
   return buffer;
   }
 
 function program10(depth0,data) {
   
   
-  return "\n    <div data-hull-component='login/shopify@hull' data-hull-redirect-on-login=\"false\"></div>\n    ";
+  return "\n      <div data-hull-component='login/shopify@hull' data-hull-redirect-on-login=\"false\"></div>\n      ";
   }
 
   stack1 = helpers['if'].call(depth0, (depth0 && depth0.displayModal), {hash:{},inverse:self.noop,fn:self.program(1, program1, data),data:data});
@@ -120,19 +120,8 @@ Hull.component({
 
   detectModalEngine: function() {
     var self = this;
-    if ($.fn.fancybox) {
-      this.options.modalEngine = 'fancybox';
-      this.modal = function(opts) {
-        if (opts === 'show') {
-          $.fancybox(self.$el);
-          self.modalOpened = true;
-        } else if (opts === 'hide') {
-          $.fancybox.close();
-          self.modalOpened = false;
-        }
-      }
-    } else if ($.fn.modal) {
-      this.options.modalEngine = 'bootstrap';
+    if ($.fn.modal) {
+      this.modalEngine = 'bootstrap';
       this.$el.on('hide.bs.modal', function() {
         self.modalOpened = false;
       });
@@ -143,6 +132,17 @@ Hull.component({
 
       this.modal = function(opts) {
         self.$el.modal(opts); 
+      }
+    } else if ($.fn.fancybox) {
+      this.modalEngine = 'fancybox';
+      this.modal = function(opts) {
+        if (opts === 'show') {
+          $.fancybox(self.$el);
+          self.modalOpened = true;
+        } else if (opts === 'hide') {
+          $.fancybox.close();
+          self.modalOpened = false;
+        }
       }
     }
   },
@@ -163,6 +163,8 @@ Hull.component({
 
     // Open the modal afterRender if it's hidden
     data.displayModal = !this.loggedIn() || !data.formComplete;
+
+    data.modalEngine = this.modalEngine;
   },
 
   afterRender: function(data) {
