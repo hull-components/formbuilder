@@ -86,7 +86,7 @@ Comes with :
 
 ### modal
 
-Displays the form in a modal on page load. (Requires bootstrap 3).
+Displays the form in a modal on page load. (works with bootstrap 3 or fancybox).
 
 
 **example**
