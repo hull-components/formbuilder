@@ -4,11 +4,11 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-          <h4 class="modal-title" id="myModalLabel">{{options.title}}</h4>
+          <h4 class="modal-title">{{options.title}}</h4>
         </div>
         <div class="modal-body">
           {{#if displayForm}}
-          <div data-hull-component='form@formbuilder' data-hull-id="{{form.id}}"></div>
+          <div data-hull-component='form@formbuilder' data-hull-id="{{form.id}}" data-hull-skip-button="true"></div>
           {{else}}
           <div data-hull-component='login/shopify@hull' data-hull-redirect-on-login="false"></div>
           {{/if}}
@@ -18,7 +18,7 @@
   {{else}}
     <div style="min-width:800px; min-height: 50%;">
       {{#if displayForm}}
-      <div data-hull-component='form@formbuilder' data-hull-id="{{form.id}}"></div>
+      <div data-hull-component='form@formbuilder' data-hull-id="{{form.id}}" data-hull-skip-button="true"></div>
       {{else}}
       <div data-hull-component='login/shopify@hull' data-hull-redirect-on-login="false"></div>
       {{/if}}

@@ -30,6 +30,14 @@ Hull.component({
       this.hide();
     }, this);
 
+    this.sandbox.on('form.modal.show', function(form) {
+      this.modal('show');
+    }, this);
+
+    this.sandbox.on('form.modal.hide', function(form) {
+      this.modal('hide');
+    }, this);
+
     this.detectModalEngine();
   },
 
@@ -58,6 +66,11 @@ Hull.component({
           $.fancybox.close();
           self.modalOpened = false;
         }
+      }
+    } else {
+      var self = this;
+      this.modal = function() {
+        self.log("No modal engine found");
       }
     }
   },

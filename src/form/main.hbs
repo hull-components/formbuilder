@@ -17,6 +17,10 @@
   {{/each}}
 
   <div>
+    {{#if options.skipButton}}
+    <button class="btn btn-info pull-right" data-hull-action="skip">Skip</button>
+    {{/if}}
+
     {{#if isAdmin}}
     <a href="#" class="btn pull-right" data-hull-action="edit">Edit Fields</a>
     {{/if}}
@@ -27,5 +31,4 @@
     <button class="btn btn-danger" data-hull-action="reset">Reset</button>
     {{/if}}    
   </div>
-
 </form>
