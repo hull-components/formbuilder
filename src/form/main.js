@@ -141,7 +141,7 @@ Hull.component({
     if (window.Pikaday) {
       _.each(data.fields, function(f) {
         if (f.field_type === 'date') {
-          var fmt = f.field_options.format || 'yyyy-mm-dd';
+          var fmt = f.field_options.format || 'YYYY-MM-DD';
           new Pikaday({ 
             field: document.getElementById(f.input_id),
             format: fmt,
